@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+
+router.get('/logout', (req,res) => {
+
+});
+router.get('/dashboard', (req,res) => {
+
+});
+router.get('/symbol', (req,res) => {
+
+});
+
+module.exports = router;
