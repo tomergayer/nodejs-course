@@ -8,9 +8,6 @@ const config = require('config');
 const client_secret = config.get('github.client.secret');;
 const client_id = config.get('github.client.id');
 const redirect_uri = 'http://303-08:3000/github/callback';
-const healthcheck = async (req, res) => {
-  res.send('I\'m healthy');
-};
 
 router.get('/', (req,res) => {
     const params = queryString.stringify({

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('./header'); %>
+</header>
+
+<main>
+<div class="row">
+  <div class="col-sm-8">
+    <div class="jumbotron">
+        <a href="https://github.com/login/oauth/authorize?client_id=<%= CLIENT_ID %>">Login with GitHub</a>
+      <p>Welcome to my application</p>
+    </div>
+  </div>
+</main>
+</body>
+</html>
