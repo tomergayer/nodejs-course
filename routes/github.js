@@ -9,21 +9,31 @@ const client_secret = config.get('github.client.secret');;
 const client_id = config.get('github.client.id');
 const redirect_uri = 'http://303-08:3000/github/callback';
 
-router.get('/', (req,res) => {
-    const params = queryString.stringify({
-        client_id: client_id,
-        redirect_uri: redirect_uri,
-        scope: ['read:user', 'user:email'].join(' '), // space seperated string
-        allow_signup: false,
-      });
-      const githubLoginUrl = `https://github.com/login/oauth/authorize?${params}`;
-      res.redirect(githubLoginUrl);
-});
 
-router.get('/callback', async (req,res) => {
-   const code = req.query.code
-   res.send(await getGitHubUserData(await getAccessTokenFromCode(code)));
-});
+const auth = require('../middlewares/gitHubAuth');
+
+router.get('/', auth.authenticate('github', { scope: [ 'user:email' ] })); 
+router.get('/callback', auth.authenticate('github', { failureRedirect: '/users/welcome', successRedirect: '/users/dashboard' }))
+
+
+
+
+
+// router.get('/', (req,res) => {
+//     const params = queryString.stringify({
+//         client_id: client_id,
+//         redirect_uri: redirect_uri,
+//         scope: ['read:user', 'user:email'].join(' '), // space seperated string
+//         allow_signup: false,
+//       });
+//       const githubLoginUrl = `https://github.com/login/oauth/authorize?${params}`;
+//       res.redirect(githubLoginUrl);
+// });
+
+// router.get('/callback', async (req,res) => {
+//    const code = req.query.code
+//    res.send(await getGitHubUserData(await getAccessTokenFromCode(code)));
+// });
 
 async function getAccessTokenFromCode(code) {
     const { data } = await axios({

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const http = require("http");
+var passport = require('passport');
 const port = 3000;
 const host = "localhost";
 //const server = http.createServer(app);
@@ -10,6 +11,12 @@ const notFoundErrorHandler = require('./middlewares/404')
 const githubRoute = require('./routes/github');
 const guestsRoute = require('./routes/guests');
 const usersRoute = require('./routes/users');
+var session = require('express-session');
+
+
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(passport.session());
+app.use(passport.initialize());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
