@@ -5,10 +5,8 @@ const queryString = require('query-string');
 const axios = require('axios');
 const router = express.Router();
 const config = require('config');
-const client_secret = '61dd3136d654643977a0e974f830477ea4651aa1';
-//const test_id = config.get(github.client.id);
-console.log(test_id);
-const client_id = '3c17ac593b5d97295b01';
+const client_secret = config.get('github.client.secret');;
+const client_id = config.get('github.client.id');
 const redirect_uri = 'http://303-08:3000/github/callback';
 const healthcheck = async (req, res) => {
   res.send('I\'m healthy');
